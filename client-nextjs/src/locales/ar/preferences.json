@@ -1,0 +1,69 @@
+{
+  "title": "تفضيلات الذكاء الاصطناعي",
+  "saved_successfully": "تم حفظ التفضيلات بنجاح",
+  "reset_successfully": "تم إعادة تعيين التفضيلات إلى الافتراضية",
+  "confirm_reset": "هل أنت متأكد من إعادة تعيين جميع التفضيلات إلى القيم الافتراضية؟",
+  "load_error": "فشل في تحميل التفضيلات",
+  "save": "حفظ التفضيلات",
+  "reset": "إعادة تعيين افتراضي",
+  "saving": "جاري الحفظ...",
+
+  "ai_responses": "استجابات الذكاء الاصطناعي",
+  "legal_practice": "الممارسة القانونية", 
+  "communication": "التواصل",
+  "workflow": "سير العمل",
+  "learning": "التعلم",
+
+  "preferred_language": "اللغة المفضلة",
+  "english": "الإنجليزية",
+  "arabic": "العربية",
+  "both": "كلا اللغتين",
+
+  "response_style": "أسلوب الاستجابة",
+  "formal": "رسمي",
+  "conversational": "محادثة", 
+  "technical": "تقني",
+  "simplified": "مبسط",
+
+  "detail_level": "مستوى التفصيل",
+  "brief": "موجز",
+  "standard": "قياسي",
+  "comprehensive": "شامل",
+
+  "include_arabic_terms": "تضمين المصطلحات القانونية العربية",
+  "include_citations": "تضمين المراجع القانونية",
+  "include_examples": "تضمين أمثلة عملية",
+
+  "specializations": "التخصصات القانونية",
+  "practice_areas": "مجالات الممارسة",
+  "preferred_sources": "المصادر القانونية المفضلة",
+
+  "urgency_handling": "التعامل مع الأمور العاجلة",
+  "conservative": "محافظ",
+  "balanced": "متوازن", 
+  "aggressive": "عدواني",
+
+  "client_communication_style": "أسلوب التواصل مع العملاء",
+  "friendly": "ودود",
+  "educational": "تعليمي",
+
+  "risk_tolerance": "تحمل المخاطر",
+  "low": "منخفض",
+  "medium": "متوسط",
+  "high": "عالي",
+
+  "working_hours": "ساعات العمل",
+  "start_time": "وقت البداية",
+  "end_time": "وقت النهاية", 
+  "timezone": "المنطقة الزمنية",
+
+  "feedback_frequency": "تكرار التغذية الراجعة",
+  "always": "دائماً",
+  "weekly": "أسبوعياً",
+  "monthly": "شهرياً",
+  "never": "أبداً",
+
+  "ai_suggestion_notifications": "إشعارات اقتراحات الذكاء الاصطناعي",
+  "learning_updates": "تحديثات التعلم",
+  "personalized_tips": "نصائح شخصية"
+}

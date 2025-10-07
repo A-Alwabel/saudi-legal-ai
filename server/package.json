@@ -1,0 +1,37 @@
+{
+  "name": "saudi-legal-ai-server",
+  "version": "2.0.0",
+  "description": "Backend server for Saudi Legal AI System",
+  "main": "db-server.js",
+  "scripts": {
+    "start": "node db-server.js",
+    "dev": "nodemon db-server.js",
+    "mock": "node mock-server.js",
+    "process-laws": "node pdf-law-processor.js process",
+    "search-laws": "node pdf-law-processor.js search",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "legal",
+    "ai",
+    "saudi",
+    "law"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "joi": "^17.11.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.3",
+    "nodemailer": "^6.9.7",
+    "openai": "^4.20.1",
+    "pdf-parse": "^1.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

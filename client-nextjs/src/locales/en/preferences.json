@@ -1,0 +1,69 @@
+{
+  "title": "AI Preferences",
+  "saved_successfully": "Preferences saved successfully",
+  "reset_successfully": "Preferences reset to defaults",
+  "confirm_reset": "Are you sure you want to reset all preferences to default values?",
+  "load_error": "Failed to load preferences",
+  "save": "Save Preferences",
+  "reset": "Reset to Defaults",
+  "saving": "Saving...",
+
+  "ai_responses": "AI Responses",
+  "legal_practice": "Legal Practice", 
+  "communication": "Communication",
+  "workflow": "Workflow",
+  "learning": "Learning",
+
+  "preferred_language": "Preferred Language",
+  "english": "English",
+  "arabic": "Arabic",
+  "both": "Both Languages",
+
+  "response_style": "Response Style",
+  "formal": "Formal",
+  "conversational": "Conversational", 
+  "technical": "Technical",
+  "simplified": "Simplified",
+
+  "detail_level": "Detail Level",
+  "brief": "Brief",
+  "standard": "Standard",
+  "comprehensive": "Comprehensive",
+
+  "include_arabic_terms": "Include Arabic Legal Terms",
+  "include_citations": "Include Legal Citations",
+  "include_examples": "Include Practical Examples",
+
+  "specializations": "Legal Specializations",
+  "practice_areas": "Practice Areas",
+  "preferred_sources": "Preferred Legal Sources",
+
+  "urgency_handling": "Urgency Handling",
+  "conservative": "Conservative",
+  "balanced": "Balanced", 
+  "aggressive": "Aggressive",
+
+  "client_communication_style": "Client Communication Style",
+  "friendly": "Friendly",
+  "educational": "Educational",
+
+  "risk_tolerance": "Risk Tolerance",
+  "low": "Low",
+  "medium": "Medium",
+  "high": "High",
+
+  "working_hours": "Working Hours",
+  "start_time": "Start Time",
+  "end_time": "End Time", 
+  "timezone": "Timezone",
+
+  "feedback_frequency": "Feedback Frequency",
+  "always": "Always",
+  "weekly": "Weekly",
+  "monthly": "Monthly",
+  "never": "Never",
+
+  "ai_suggestion_notifications": "AI Suggestion Notifications",
+  "learning_updates": "Learning Updates",
+  "personalized_tips": "Personalized Tips"
+}
