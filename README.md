@@ -146,8 +146,8 @@
 ### التثبيت / Installation
 ```bash
 # استنساخ المشروع
-git clone https://github.com/your-username/saudi-legal-ai-v2.git
-cd saudi-legal-ai-v2
+git clone https://github.com/A-Alwabel/saudi-legal-ai.git
+cd saudi-legal-ai
 
 # تثبيت التبعيات
 npm install
@@ -188,11 +188,11 @@ start-with-database.bat   # For database (needs fix)
 ## 📁 بنية المشروع
 
 ```
-saudi-legal-ai-v2/
-├── 📁 client/                 # تطبيق React
+saudi-legal-ai/
+├── 📁 client-nextjs/          # تطبيق React Next.js
 │   ├── 📁 src/
 │   │   ├── 📁 components/     # المكونات
-│   │   ├── 📁 pages/         # الصفحات
+│   │   ├── 📁 app/           # الصفحات (App Router)
 │   │   ├── 📁 hooks/         # Custom Hooks
 │   │   ├── 📁 services/      # خدمات API
 │   │   ├── 📁 store/         # إدارة الحالة
