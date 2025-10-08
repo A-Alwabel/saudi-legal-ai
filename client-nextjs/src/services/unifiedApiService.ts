@@ -175,6 +175,10 @@ export const authAPI = {
     const response = await apiClient.post('/auth/reset-password', { email });
     return response.data;
   },
+  getCurrentUser: async () => {
+    const response = await apiClient.get<ApiResponse>('/auth/me');
+    return response.data;
+  },
 };
 export const authService = authAPI; // Alias for compatibility
 
