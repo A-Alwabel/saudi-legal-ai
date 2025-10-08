@@ -127,8 +127,8 @@ export const updateCase = createAsyncThunk(
   'cases/updateCase',
   async ({ id, caseData }: { id: string; caseData: Partial<Case> }, { rejectWithValue }) => {
     try {
-      const response = await casesApi.updateCase(id, caseData);
-      return response.data.data;
+      const updatedCase = await casesApi.update(id, caseData);
+      return updatedCase;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to update case');
     }
@@ -139,7 +139,7 @@ export const deleteCase = createAsyncThunk(
   'cases/deleteCase',
   async (id: string, { rejectWithValue }) => {
     try {
-      await casesApi.deleteCase(id);
+      await casesApi.delete(id);
       return id;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to delete case');
