@@ -298,7 +298,7 @@ class WebSocketService {
   // Subscribe to case updates
   onCaseUpdate(caseId: string, callback: Function): () => void {
     this.joinRoom(`case:${caseId}`);
-    const unsubscribe = this.on(WSEventType.CASE_UPDATE, (data) => {
+    const unsubscribe = this.on(WSEventType.CASE_UPDATE, (data: any) => {
       if (data.caseId === caseId) {
         callback(data);
       }
