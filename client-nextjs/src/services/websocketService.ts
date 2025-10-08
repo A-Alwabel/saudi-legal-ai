@@ -313,7 +313,7 @@ class WebSocketService {
   // Subscribe to client portal activity
   onClientActivity(clientId: string, callback: Function): () => void {
     this.joinRoom(`client:${clientId}`);
-    return this.on(WSEventType.CLIENT_PORTAL_ACTIVITY, (data) => {
+    return this.on(WSEventType.CLIENT_PORTAL_ACTIVITY, (data: any) => {
       if (data.clientId === clientId) {
         callback(data);
       }
@@ -337,7 +337,7 @@ class WebSocketService {
 
   // Subscribe to general notifications
   onNotification(callback: (notification: WSNotification) => void): () => void {
-    return this.on(WSEventType.NOTIFICATION, (data) => {
+    return this.on(WSEventType.NOTIFICATION, (data: any) => {
       const notification = data as WSNotification;
       
       // Show browser notification if enabled
