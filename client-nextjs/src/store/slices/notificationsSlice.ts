@@ -41,10 +41,12 @@ export const fetchUnreadCount = createAsyncThunk(
   'notifications/fetchUnreadCount',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await notificationsApi.getUnreadCount();
-      return response.data.data.count;
+      // Get all notifications and count unread ones
+      const notifications = await notificationsApi.getAll();
+      const unreadCount = Array.isArray(notifications) ? notifications.filter((n: any) => !n.read).length : 0;
+      return unreadCount;
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.message || 'Failed to fetch unread count');
+      return rejectWithValue(error.message || 'Failed to fetch unread count');
     }
   }
 );
