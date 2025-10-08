@@ -54,7 +54,14 @@ export function useAIConsultation() {
       context?: any;
       includeReferences?: boolean;
     }) => {
-      return execute(() => unifiedApiService.ai.getConsultation(consultationData));
+      return execute(async () => {
+        const response = await fetch('/api/v1/ai/consultation', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(consultationData)
+        });
+        return response.json();
+      });
     },
     [execute]
   );
