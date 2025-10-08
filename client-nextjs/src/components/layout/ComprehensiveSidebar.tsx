@@ -406,7 +406,7 @@ export default function ComprehensiveSidebar({ open = true, onToggle }: Comprehe
               >
                 {collapsed ? (
                   <Tooltip title={isRTL ? item.titleAr : item.title} placement={isRTL ? 'left' : 'right'}>
-                    {item.icon}
+                    <Box component="span">{item.icon}</Box>
                   </Tooltip>
                 ) : (
                   item.icon
@@ -426,7 +426,7 @@ export default function ComprehensiveSidebar({ open = true, onToggle }: Comprehe
               )}
             </ListItemButton>
           </ListItem>
-          {!collapsed && (
+          {!collapsed && item.children && (
             <Collapse in={isExpanded} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 {item.children.map(child => renderMenuItem(child, depth + 1))}
@@ -467,7 +467,7 @@ export default function ComprehensiveSidebar({ open = true, onToggle }: Comprehe
           >
             {collapsed ? (
               <Tooltip title={isRTL ? item.titleAr : item.title} placement={isRTL ? 'left' : 'right'}>
-                {item.icon}
+                <Box component="span">{item.icon}</Box>
               </Tooltip>
             ) : (
               item.icon
