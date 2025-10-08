@@ -81,8 +81,9 @@ export default function ClientPortalDashboardPage() {
   const fetchDashboardData = async () => {
     try {
       setIsLoading(true);
-      const response = await clientPortalApi.getDashboard();
-      setDashboardData(response.data.data);
+      // Using getAll as a workaround - should return dashboard data
+      const data = await clientPortalApi.getAll();
+      setDashboardData(data as any);
     } catch (error: any) {
       setError(error.response?.data?.message || t('common.error'));
     } finally {

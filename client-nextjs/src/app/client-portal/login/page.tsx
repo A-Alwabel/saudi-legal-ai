@@ -76,15 +76,24 @@ export default function ClientPortalLoginPage() {
     setError(null);
 
     try {
-      const response = await clientPortalApi.login(formData);
+      // Use auth API for login
+      const response = await fetch('/api/client-portal/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      }).then(res => res.json());
       
-      // Store client token and data
-      localStorage.setItem('clientToken', response.data.data.token);
-      localStorage.setItem('clientData', JSON.stringify(response.data.data.client));
-      
-      router.push('/client-portal/dashboard');
+      if (response.success) {
+        // Store client token and data
+        localStorage.setItem('clientToken', response.data.token);
+        localStorage.setItem('clientData', JSON.stringify(response.data.client));
+        
+        router.push('/client-portal/dashboard');
+      } else {
+        setError(response.message || t('auth.login.failed'));
+      }
     } catch (error: any) {
-      setError(error.response?.data?.message || t('auth.login.failed'));
+      setError(error.message || t('auth.login.failed'));
     } finally {
       setIsLoading(false);
     }
