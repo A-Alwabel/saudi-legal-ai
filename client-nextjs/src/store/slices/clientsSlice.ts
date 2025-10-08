@@ -19,10 +19,18 @@ const initialState: ClientsState = {
 
 export const fetchClients = createAsyncThunk(
   'clients/fetchClients',
-  async (params?: any, { rejectWithValue }) => {
+  async (params: any = {}, { rejectWithValue }) => {
     try {
-      const response = await clientsApi.getClients(params);
-      return { clients: response.data.data, pagination: response.data.pagination };
+      const clients = await clientsApi.getAll(params);
+      return {
+        clients: clients || [],
+        pagination: {
+          page: params.page || 1,
+          limit: params.limit || 10,
+          total: clients?.length || 0,
+          totalPages: Math.ceil((clients?.length || 0) / (params.limit || 10))
+        }
+      };
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch clients');
     }
