@@ -73,8 +73,7 @@ export const fetchDashboardData = createAsyncThunk(
   'dashboard/fetchData',
   async (_, { rejectWithValue }) => {
     try {
-      // Use generic getAll for analytics data
-      const data = await analyticsApi.getAll();
+      const data = await analyticsApi.getDashboardStats();
       return data || {};
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch dashboard data');
@@ -84,9 +83,9 @@ export const fetchDashboardData = createAsyncThunk(
 
 export const fetchCaseAnalytics = createAsyncThunk(
   'dashboard/fetchCaseAnalytics',
-  async (params: any = {}, { rejectWithValue }) => {
+  async (period: string = 'month', { rejectWithValue }) => {
     try {
-      const data = await analyticsApi.getAll(params);
+      const data = await analyticsApi.getCaseAnalytics(period);
       return data || {};
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch case analytics');
@@ -96,9 +95,9 @@ export const fetchCaseAnalytics = createAsyncThunk(
 
 export const fetchFinancialAnalytics = createAsyncThunk(
   'dashboard/fetchFinancialAnalytics',
-  async (params: any = {}, { rejectWithValue }) => {
+  async ({ startDate, endDate }: { startDate: string; endDate: string }, { rejectWithValue }) => {
     try {
-      const data = await analyticsApi.getAll(params);
+      const data = await analyticsApi.getFinancialAnalytics(startDate, endDate);
       return data || {};
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch financial analytics');
