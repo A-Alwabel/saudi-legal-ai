@@ -33,7 +33,8 @@ export const loginUser = createAsyncThunk(
   async (credentials: { email: string; password: string }, { rejectWithValue }) => {
     try {
       const response = await authService.login(credentials.email, credentials.password);
-      const { token, user } = response;
+      const token = (response as any).token || (response as any).data?.token;
+      const user = (response as any).user || (response as any).data?.user;
       
       // Token and user are already stored by authService
       
@@ -55,7 +56,8 @@ export const registerUser = createAsyncThunk(
   }, { rejectWithValue }) => {
     try {
       const response = await authService.register(userData);
-      const { token, user } = response;
+      const token = (response as any).token || (response as any).data?.token;
+      const user = (response as any).user || (response as any).data?.user;
       
       // Token and user are already stored by authService
       
