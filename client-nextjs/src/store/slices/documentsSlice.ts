@@ -1,5 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { documentsApi } from '../../services/unifiedApiService';
+import { documentsApi, ApiService } from '../../services/unifiedApiService';
+
+// Create a documents service instance for CRUD operations
+const documentsService = new ApiService('/documents');
 
 interface DocumentsState {
   documents: any[];
@@ -23,7 +26,7 @@ export const fetchDocuments = createAsyncThunk(
   'documents/fetchDocuments',
   async (params: any = {}, { rejectWithValue }) => {
     try {
-      const documents = await documentsApi.getAll(params);
+      const documents = await documentsService.getAll(params);
       return {
         documents: documents || [],
         pagination: {
