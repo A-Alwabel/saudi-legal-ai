@@ -19,10 +19,10 @@ const initialState: AppointmentsState = {
 
 export const fetchAppointments = createAsyncThunk(
   'appointments/fetchAppointments',
-  async (params?: any, { rejectWithValue }) => {
+  async (params: any = {}, { rejectWithValue }) => {
     try {
-      const response = await appointmentsApi.getAppointments(params);
-      return { appointments: response.data.data, pagination: response.data.pagination };
+      const appointments = await appointmentsApi.getAll(params);
+      return { appointments, pagination: {} };
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch appointments');
     }
