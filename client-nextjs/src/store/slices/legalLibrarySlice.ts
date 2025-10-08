@@ -45,10 +45,10 @@ export const searchResources = createAsyncThunk(
   'legalLibrary/searchResources',
   async ({ query, filters }: { query: string; filters?: any }, { rejectWithValue }) => {
     try {
-      const response = await legalLibraryApi.searchResources(query, filters);
-      return response.data.data;
+      const resources = await legalLibraryApi.search(query);
+      return resources || [];
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.message || 'Failed to search resources');
+      return rejectWithValue(error.message || 'Failed to search resources');
     }
   }
 );
