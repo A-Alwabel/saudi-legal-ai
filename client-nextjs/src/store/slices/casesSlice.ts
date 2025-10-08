@@ -169,8 +169,16 @@ export const addCaseNote = createAsyncThunk(
   async ({ id, note }: { id: string; note: string }, { rejectWithValue }) => {
     try {
       // Add note by updating the case with a new note
-      const updatedCase = await casesApi.update(id, { notes: [{ text: note, date: new Date().toISOString() }] });
-      return { caseId: id, note: { text: note, date: new Date().toISOString() } };
+      const noteId = `note-${Date.now()}`;
+      const newNote = {
+        id: noteId,
+        content: note,
+        addedBy: 'current-user',
+        addedByName: 'Current User',
+        addedAt: new Date().toISOString()
+      };
+      const updatedCase = await casesApi.update(id, { notes: [newNote] });
+      return { caseId: id, note: newNote };
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to add case note');
     }
