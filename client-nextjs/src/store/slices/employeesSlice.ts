@@ -19,10 +19,18 @@ const initialState: EmployeesState = {
 
 export const fetchEmployees = createAsyncThunk(
   'employees/fetchEmployees',
-  async (params?: any, { rejectWithValue }) => {
+  async (params: any = {}, { rejectWithValue }) => {
     try {
-      const response = await employeesApi.getEmployees(params);
-      return { employees: response.data.data, pagination: response.data.pagination };
+      const employees = await employeesApi.getAll(params);
+      return {
+        employees: employees || [],
+        pagination: {
+          page: params.page || 1,
+          limit: params.limit || 10,
+          total: employees?.length || 0,
+          totalPages: Math.ceil((employees?.length || 0) / (params.limit || 10))
+        }
+      };
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch employees');
     }
