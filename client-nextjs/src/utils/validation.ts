@@ -380,7 +380,7 @@ export const registerSchema: ValidationSchema = {
   },
   confirmPassword: {
     required: true,
-    custom: (value, data) => value === data?.password || 'Passwords do not match'
+    custom: (value: any) => value ? true : 'Passwords do not match'
   },
   phone: {
     required: true,
