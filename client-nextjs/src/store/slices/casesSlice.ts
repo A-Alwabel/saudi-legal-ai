@@ -151,8 +151,8 @@ export const updateCaseStatus = createAsyncThunk(
   'cases/updateStatus',
   async ({ id, status }: { id: string; status: string }, { rejectWithValue }) => {
     try {
-      const response = await casesApi.updateCaseStatus(id, status);
-      return { id, status, case: response.data.data };
+      const updatedCase = await casesApi.update(id, { status });
+      return { id, status, case: updatedCase };
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to update case status');
     }
@@ -163,8 +163,9 @@ export const addCaseNote = createAsyncThunk(
   'cases/addNote',
   async ({ id, note }: { id: string; note: string }, { rejectWithValue }) => {
     try {
-      const response = await casesApi.addCaseNote(id, note);
-      return { caseId: id, note: response.data.data };
+      // Add note by updating the case with a new note
+      const updatedCase = await casesApi.update(id, { notes: [{ text: note, date: new Date().toISOString() }] });
+      return { caseId: id, note: { text: note, date: new Date().toISOString() } };
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to add case note');
     }
