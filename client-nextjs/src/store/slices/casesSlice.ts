@@ -86,7 +86,7 @@ const initialState: CasesState = {
 
 export const fetchCases = createAsyncThunk(
   'cases/fetchCases',
-  async (params?: any, { rejectWithValue }) => {
+  async (params: any = {}, { rejectWithValue }) => {
     try {
       const response = await casesApi.getAll(params);
       return {
