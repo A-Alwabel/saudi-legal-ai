@@ -92,8 +92,8 @@ export function measureWebVitals(metric: any): void {
   performanceMonitor.recordMetric(`webvital_${name}`, value);
   
   // Send to analytics service (if configured)
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', name, {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    (window as any).gtag('event', name, {
       event_category: 'Web Vitals',
       event_label: id,
       value: Math.round(name === 'CLS' ? value * 1000 : value),
