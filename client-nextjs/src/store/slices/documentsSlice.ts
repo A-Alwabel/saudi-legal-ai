@@ -21,10 +21,18 @@ const initialState: DocumentsState = {
 
 export const fetchDocuments = createAsyncThunk(
   'documents/fetchDocuments',
-  async (params?: any, { rejectWithValue }) => {
+  async (params: any = {}, { rejectWithValue }) => {
     try {
-      const response = await documentsApi.getDocuments(params);
-      return { documents: response.data.data, pagination: response.data.pagination };
+      const documents = await documentsApi.getAll(params);
+      return {
+        documents: documents || [],
+        pagination: {
+          page: params.page || 1,
+          limit: params.limit || 10,
+          total: documents?.length || 0,
+          totalPages: Math.ceil((documents?.length || 0) / (params.limit || 10))
+        }
+      };
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch documents');
     }
