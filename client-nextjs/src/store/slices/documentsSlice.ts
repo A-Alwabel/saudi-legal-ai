@@ -44,12 +44,12 @@ export const fetchDocuments = createAsyncThunk(
 
 export const uploadDocument = createAsyncThunk(
   'documents/uploadDocument',
-  async (formData: FormData, { rejectWithValue }) => {
+  async ({ file, metadata }: { file: File; metadata?: any }, { rejectWithValue }) => {
     try {
-      const response = await documentsApi.uploadDocument(formData);
-      return response.data.data;
+      const response = await documentsApi.upload(file, metadata);
+      return response;
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.message || 'Failed to upload document');
+      return rejectWithValue(error.message || 'Failed to upload document');
     }
   }
 );
