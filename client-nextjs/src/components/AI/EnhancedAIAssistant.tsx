@@ -116,12 +116,17 @@ const EnhancedAIAssistant: React.FC = () => {
     setQuery('');
 
     try {
-      const response = await unifiedApiService.ai.getConsultation({
-        query: currentQuery,
-        caseType: caseType || undefined,
-        language,
-        includeReferences,
-      });
+      // Call AI consultation API
+      const response = await fetch('/api/v1/ai/consultation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          query: currentQuery,
+          caseType: caseType || undefined,
+          language,
+          includeReferences,
+        })
+      }).then(res => res.json());
 
       const newConversation: Conversation = {
         id: response.id || Date.now().toString(),
@@ -158,11 +163,16 @@ const EnhancedAIAssistant: React.FC = () => {
 
   const submitFeedback = async (conversationId: string, rating: number, helpful: boolean, comment?: string) => {
     try {
-      await unifiedApiService.ai.submitFeedback({
-        consultationId: conversationId,
-        rating,
-        isHelpful: helpful,
-        comment,
+      // Submit RLHF feedback
+      await fetch('/api/v1/rlhf/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          consultationId: conversationId,
+          rating,
+          isHelpful: helpful,
+          comment,
+        })
       });
 
       // Update conversation with feedback
