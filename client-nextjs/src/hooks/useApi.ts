@@ -137,13 +137,7 @@ export function useCrud<T = any>(serviceInstance: any) {
         setItemError(null);
         const result = await serviceInstance.update(id, updates);
         setItem(result);
-        // Update the list if it exists
-        if (data) {
-          const updatedData = data.map((item: any) => 
-            item._id === id ? result : item
-          );
-          setData(updatedData);
-        }
+        // Note: Caller should refetch list after update
         return result;
       } catch (err: any) {
         const errorMessage = err.response?.data?.message || err.message || 'Failed to update item';
@@ -153,7 +147,7 @@ export function useCrud<T = any>(serviceInstance: any) {
         setItemLoading(false);
       }
     },
-    [serviceInstance, data]
+    [serviceInstance]
   );
 
   const remove = useCallback(
@@ -162,15 +156,11 @@ export function useCrud<T = any>(serviceInstance: any) {
         setItemLoading(true);
         setItemError(null);
         await serviceInstance.delete(id);
-        // Remove from list if it exists
-        if (data) {
-          const filteredData = data.filter((item: any) => item._id !== id);
-          setData(filteredData);
-        }
         // Clear item if it's the one being deleted
         if (item && (item as any)._id === id) {
           setItem(null);
         }
+        // Note: Caller should refetch list after delete
       } catch (err: any) {
         const errorMessage = err.response?.data?.message || err.message || 'Failed to delete item';
         setItemError(errorMessage);
@@ -179,7 +169,7 @@ export function useCrud<T = any>(serviceInstance: any) {
         setItemLoading(false);
       }
     },
-    [serviceInstance, data, item]
+    [serviceInstance, item]
   );
 
   return {
