@@ -117,10 +117,7 @@ export function useCrud<T = any>(serviceInstance: any) {
         setItemError(null);
         const result = await serviceInstance.create(itemData);
         setItem(result);
-        // Refresh the list if it exists
-        if (data) {
-          setData([...data, result]);
-        }
+        // Note: Caller should refetch list after create
         return result;
       } catch (err: any) {
         const errorMessage = err.response?.data?.message || err.message || 'Failed to create item';
@@ -130,7 +127,7 @@ export function useCrud<T = any>(serviceInstance: any) {
         setItemLoading(false);
       }
     },
-    [serviceInstance, data]
+    [serviceInstance]
   );
 
   const update = useCallback(
