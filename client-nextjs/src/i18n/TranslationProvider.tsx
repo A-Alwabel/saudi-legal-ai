@@ -10,6 +10,7 @@ interface TranslationContextType {
   t: (key: string) => string;
   locale: Locale;
   setLocale: (locale: Locale) => void;
+  dir: 'ltr' | 'rtl';
 }
 
 const TranslationContext = createContext<TranslationContextType | undefined>(undefined);
@@ -63,6 +64,7 @@ export function TranslationProvider({ children }: TranslationProviderProps) {
       t,
       locale,
       setLocale,
+      dir: locale === 'ar' ? 'rtl' as const : 'ltr' as const,
     }),
     [t, locale]
   );
