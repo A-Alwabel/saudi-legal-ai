@@ -22,7 +22,15 @@ export const fetchAppointments = createAsyncThunk(
   async (params: any = {}, { rejectWithValue }) => {
     try {
       const appointments = await appointmentsApi.getAll(params);
-      return { appointments, pagination: {} };
+      return {
+        appointments,
+        pagination: {
+          page: params.page || 1,
+          limit: params.limit || 10,
+          total: appointments?.length || 0,
+          totalPages: Math.ceil((appointments?.length || 0) / (params.limit || 10))
+        }
+      };
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch appointments');
     }

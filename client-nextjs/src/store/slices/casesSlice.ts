@@ -91,7 +91,12 @@ export const fetchCases = createAsyncThunk(
       const cases = await casesApi.getAll(params);
       return {
         cases: cases || [],
-        pagination: {},
+        pagination: {
+          page: params.page || 1,
+          limit: params.limit || 10,
+          total: cases?.length || 0,
+          totalPages: Math.ceil((cases?.length || 0) / (params.limit || 10))
+        },
       };
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch cases');
