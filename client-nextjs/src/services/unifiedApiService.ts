@@ -179,6 +179,19 @@ export const authAPI = {
     const response = await apiClient.get<ApiResponse>('/auth/me');
     return response.data;
   },
+  getCurrentClient: () => {
+    if (typeof window !== 'undefined') {
+      const clientData = localStorage.getItem('clientData');
+      return clientData ? JSON.parse(clientData) : null;
+    }
+    return null;
+  },
+  isAuthenticated: () => {
+    if (typeof window !== 'undefined') {
+      return !!localStorage.getItem('auth_token') || !!localStorage.getItem('clientToken');
+    }
+    return false;
+  },
 };
 export const authService = authAPI; // Alias for compatibility
 
