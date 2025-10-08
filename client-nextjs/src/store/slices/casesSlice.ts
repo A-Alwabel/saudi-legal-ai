@@ -88,10 +88,10 @@ export const fetchCases = createAsyncThunk(
   'cases/fetchCases',
   async (params: any = {}, { rejectWithValue }) => {
     try {
-      const response = await casesApi.getAll(params);
+      const cases = await casesApi.getAll(params);
       return {
-        cases: response.data || response,
-        pagination: response.pagination,
+        cases: cases || [],
+        pagination: {},
       };
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch cases');
