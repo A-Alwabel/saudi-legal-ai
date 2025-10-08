@@ -106,8 +106,8 @@ export default function ClientCasesPage() {
       const params: any = { limit: 50 };
       if (filterStatus) params.status = filterStatus;
       
-      const response = await clientPortalApi.getCases(params);
-      setCases(response || []);
+      const cases = await clientPortalApi.getAll(params);
+      setCases(cases || []);
     } catch (error) {
       console.error('Failed to load cases:', error);
       toast.error('Failed to load cases');
