@@ -192,7 +192,7 @@ class MemoryCache<T> {
   set(key: string, value: T, ttl: number = 300000): void {
     // If cache is full, remove oldest item
     if (this.cache.size >= this.maxSize) {
-      const firstKey = this.cache.keys().next().value;
+      const firstKey = this.cache.keys().next().value as string;
       this.cache.delete(firstKey);
     }
     
