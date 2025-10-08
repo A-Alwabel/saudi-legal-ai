@@ -552,13 +552,7 @@ export default function ContactsPage() {
           onView={(id) => console.log('View contact', id)}
           onEdit={(id) => console.log('Edit contact', id)}
           onDelete={(ids) => console.log('Delete contacts', ids)}
-          actions={[
-            {
-              label: isRTL ? 'تفضيل' : 'Favorite',
-              icon: <Star />,
-              onClick: (ids) => ids.forEach(id => toggleFavorite(id)),
-            },
-          ]}
+          actions={true}
         />
 
         {/* Add Contact Dialog */}

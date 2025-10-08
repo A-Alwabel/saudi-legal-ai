@@ -20,12 +20,6 @@ import {
   MenuItem,
   Chip,
   Avatar,
-  Timeline,
-  TimelineItem,
-  TimelineSeparator,
-  TimelineDot,
-  TimelineConnector,
-  TimelineContent,
   Alert,
   LinearProgress,
 } from '@mui/material';
