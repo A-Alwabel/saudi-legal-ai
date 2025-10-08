@@ -45,3 +45,4 @@ This tells MUI Link to use Next.js Link as its underlying component, avoiding ne
 
 **The error should be gone now!** The frontend will automatically reload with the fix.
 
+

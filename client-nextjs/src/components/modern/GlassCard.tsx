@@ -3,8 +3,8 @@
 import React from 'react';
 import { Card, CardProps, styled, alpha } from '@mui/material';
 
-const StyledGlassCard = styled(Card)<{ variant?: 'default' | 'primary' | 'secondary' }>(
-  ({ theme, variant = 'default' }) => ({
+const StyledGlassCard = styled(Card)<{ glassvariant?: 'default' | 'primary' | 'secondary' }>(
+  ({ theme, glassvariant = 'default' }) => ({
     background: theme.palette.mode === 'dark'
       ? `${alpha(theme.palette.background.paper, 0.8)}`
       : `${alpha(theme.palette.background.paper, 0.9)}`,
@@ -22,9 +22,9 @@ const StyledGlassCard = styled(Card)<{ variant?: 'default' | 'primary' | 'second
       left: 0,
       right: 0,
       height: '1px',
-      background: variant === 'primary' 
+      background: glassvariant === 'primary' 
         ? `linear-gradient(90deg, transparent, ${theme.palette.primary.main}, transparent)`
-        : variant === 'secondary'
+        : glassvariant === 'secondary'
         ? `linear-gradient(90deg, transparent, ${theme.palette.secondary.main}, transparent)`
         : `linear-gradient(90deg, transparent, ${alpha(theme.palette.text.primary, 0.1)}, transparent)`,
     },
@@ -36,21 +36,21 @@ const StyledGlassCard = styled(Card)<{ variant?: 'default' | 'primary' | 'second
         : `0 20px 60px ${alpha(theme.palette.primary.main, 0.15)}`,
       
       '&::before': {
-        background: variant === 'primary' 
+        background: glassvariant === 'primary' 
           ? `linear-gradient(90deg, transparent, ${theme.palette.primary.light}, transparent)`
-          : variant === 'secondary'
+          : glassvariant === 'secondary'
           ? `linear-gradient(90deg, transparent, ${theme.palette.secondary.light}, transparent)`
           : `linear-gradient(90deg, transparent, ${alpha(theme.palette.text.primary, 0.2)}, transparent)`,
       },
     },
 
-    ...(variant === 'primary' && {
+    ...(glassvariant === 'primary' && {
       background: theme.palette.mode === 'dark'
         ? `linear-gradient(135deg, ${alpha(theme.palette.primary.dark, 0.2)}, ${alpha(theme.palette.primary.main, 0.1)})`
         : `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.05)}, ${alpha(theme.palette.primary.light, 0.1)})`,
     }),
 
-    ...(variant === 'secondary' && {
+    ...(glassvariant === 'secondary' && {
       background: theme.palette.mode === 'dark'
         ? `linear-gradient(135deg, ${alpha(theme.palette.secondary.dark, 0.2)}, ${alpha(theme.palette.secondary.main, 0.1)})`
         : `linear-gradient(135deg, ${alpha(theme.palette.secondary.main, 0.05)}, ${alpha(theme.palette.secondary.light, 0.1)})`,
@@ -58,7 +58,7 @@ const StyledGlassCard = styled(Card)<{ variant?: 'default' | 'primary' | 'second
   })
 );
 
-interface GlassCardProps extends CardProps {
+interface GlassCardProps extends Omit<CardProps, 'variant'> {
   variant?: 'default' | 'primary' | 'secondary';
   children: React.ReactNode;
 }
@@ -70,7 +70,7 @@ export const GlassCard: React.FC<GlassCardProps> = ({
 }) => {
   return (
     <StyledGlassCard
-      variant={variant}
+      glassvariant={variant}
       {...props}
     >
       {children}

@@ -3,6 +3,20 @@ const nextConfig = {
   // Enable React strict mode for better development experience
   reactStrictMode: true,
   
+  // ESLint configuration - allow build despite warnings
+  eslint: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: false, // We want to see warnings, but not fail
+  },
+  
+  // TypeScript configuration  
+  typescript: {
+    // Warning: Dangerously allow production builds to successfully complete even if
+    // your project has type errors.
+    ignoreBuildErrors: false, // Keep strict for now
+  },
+  
   // Optimize images
   images: {
     domains: ['localhost', 'api.saudilegal.ai'],

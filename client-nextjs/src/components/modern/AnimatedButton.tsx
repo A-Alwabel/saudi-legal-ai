@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Button, ButtonProps, styled, alpha } from '@mui/material';
+import { Button, ButtonProps, styled, alpha, Box } from '@mui/material';
 import { motion, MotionProps } from 'framer-motion';
 
 const StyledAnimatedButton = styled(Button)<{ customvariant?: 'gradient' }>(
@@ -55,7 +55,7 @@ const StyledAnimatedButton = styled(Button)<{ customvariant?: 'gradient' }>(
 
 const MotionButton = motion.create(StyledAnimatedButton);
 
-interface AnimatedButtonProps extends Omit<ButtonProps, 'ref'>, MotionProps {
+interface AnimatedButtonProps extends Omit<ButtonProps, 'ref'> {
   children: React.ReactNode;
   loading?: boolean;
   icon?: React.ReactNode;
@@ -69,30 +69,31 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
   ...props 
 }) => {
   return (
-    <MotionButton
+    <StyledAnimatedButton
       disabled={disabled || loading}
-      whileTap={{ scale: 0.98 }}
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.2 }}
       startIcon={loading ? undefined : icon}
       {...props}
     >
       {loading ? (
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-          style={{
+        <Box
+          component="span"
+          sx={{
             width: 20,
             height: 20,
             border: '2px solid currentColor',
             borderRadius: '50%',
             borderTopColor: 'transparent',
-            marginRight: 8,
+            marginRight: 1,
+            display: 'inline-block',
+            animation: 'spin 1s linear infinite',
+            '@keyframes spin': {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' },
+            },
           }}
         />
       ) : null}
       {children}
-    </MotionButton>
+    </StyledAnimatedButton>
   );
 };
