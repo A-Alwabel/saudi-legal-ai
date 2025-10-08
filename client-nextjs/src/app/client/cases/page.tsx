@@ -150,7 +150,7 @@ export default function ClientCasesPage() {
     }
 
     try {
-      await clientPortalApi.submitConsultationRequest(consultationForm);
+      await clientPortalApi.create(consultationForm);
       toast.success('Consultation request submitted successfully');
       setConsultationDialog(false);
       loadCases(); // Reload to show new consultation case

@@ -32,6 +32,7 @@ import {
   GetApp,
 } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
+import clientPortalApi from '@/services/clientPortalService';
 import { clientPortalService } from '@/services/clientPortalService';
 import { GlassCard } from '@/components/modern/GlassCard';
 import { StatCard } from '@/components/modern/StatCard';
@@ -73,8 +74,8 @@ export default function ClientDashboardPage() {
 
   const loadDashboardData = async () => {
     try {
-      const data = await clientPortalService.getDashboard();
-      setDashboardData(data);
+      const data = await clientPortalApi.getAll();
+      setDashboardData(data as any);
     } catch (error) {
       console.error('Failed to load dashboard data:', error);
       toast.error('Failed to load dashboard data');
@@ -89,9 +90,11 @@ export default function ClientDashboardPage() {
         setClientData(localClient);
       }
 
-      // Then fetch fresh data
-      const profile = await clientPortalService.getProfile();
-      setClientData(profile);
+      // Then fetch fresh data from localStorage (already set above)
+      const client = localStorage.getItem('clientData');
+      if (client) {
+        setClientData(JSON.parse(client));
+      }
     } catch (error) {
       console.error('Failed to load client data:', error);
     } finally {

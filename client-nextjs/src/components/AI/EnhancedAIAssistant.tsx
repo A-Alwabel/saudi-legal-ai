@@ -92,10 +92,11 @@ const EnhancedAIAssistant: React.FC = () => {
   const loadPreferences = async () => {
     try {
       const response = await unifiedApiService.get('/lawyer-preferences');
-      if (response.success) {
-        setPreferences(response.data);
-        setLanguage(response.data.preferredLanguage === 'both' ? i18n.language : response.data.preferredLanguage);
-        setIncludeReferences(response.data.includeCitations);
+      const data = (response as any).data || response;
+      if (data) {
+        setPreferences(data);
+        setLanguage(data.preferredLanguage === 'both' ? i18n.language : data.preferredLanguage);
+        setIncludeReferences(data.includeCitations);
       }
     } catch (error) {
       console.error('Failed to load preferences:', error);

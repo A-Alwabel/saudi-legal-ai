@@ -49,6 +49,7 @@ import {
 } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
+import { clientPortalApi } from '@/services/unifiedApiService';
 import { clientPortalService } from '@/services/clientPortalService';
 import { GlassCard } from '@/components/modern/GlassCard';
 import { LoadingSpinner } from '@/components/modern/LoadingSpinner';
@@ -117,8 +118,8 @@ export default function ClientDocumentsPage() {
       if (filterType) params.documentType = filterType;
       if (filterCase) params.caseId = filterCase;
       
-      const response = await clientPortalService.getDocuments(params);
-      setDocuments(response.data || []);
+      const documents = await clientPortalApi.getAll(params);
+      setDocuments(documents || []);
     } catch (error) {
       console.error('Failed to load documents:', error);
       toast.error('Failed to load documents');
@@ -129,8 +130,8 @@ export default function ClientDocumentsPage() {
 
   const loadCases = async () => {
     try {
-      const response = await clientPortalService.getCases({ limit: 100 });
-      setCases(response.data || []);
+      const cases = await clientPortalService.getCases({ limit: 100 });
+      setCases(cases || []);
     } catch (error) {
       console.error('Failed to load cases:', error);
     }
@@ -154,15 +155,17 @@ export default function ClientDocumentsPage() {
 
   const handleDownloadDocument = async (documentId: string, fileName: string) => {
     try {
-      const downloadData = await clientPortalService.downloadDocument(documentId);
+      const blob = await clientPortalService.downloadDocument(documentId);
       
-      // Create download link
+      // Create download link from blob
+      const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
-      link.href = downloadData.downloadUrl;
+      link.href = url;
       link.download = fileName;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
       
       toast.success('Download started');
     } catch (error) {
