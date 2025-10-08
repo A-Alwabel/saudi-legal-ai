@@ -23,10 +23,18 @@ const initialState: LegalLibraryState = {
 
 export const fetchResources = createAsyncThunk(
   'legalLibrary/fetchResources',
-  async (params?: any, { rejectWithValue }) => {
+  async (params: any = {}, { rejectWithValue }) => {
     try {
-      const response = await legalLibraryApi.getResources(params);
-      return { resources: response.data.data, pagination: response.data.pagination };
+      const resources = await legalLibraryApi.getAll(params);
+      return {
+        resources: resources || [],
+        pagination: {
+          page: params.page || 1,
+          limit: params.limit || 10,
+          total: resources?.length || 0,
+          totalPages: Math.ceil((resources?.length || 0) / (params.limit || 10))
+        }
+      };
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch resources');
     }

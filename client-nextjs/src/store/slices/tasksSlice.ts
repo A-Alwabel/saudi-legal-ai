@@ -19,10 +19,18 @@ const initialState: TasksState = {
 
 export const fetchTasks = createAsyncThunk(
   'tasks/fetchTasks',
-  async (params?: any, { rejectWithValue }) => {
+  async (params: any = {}, { rejectWithValue }) => {
     try {
-      const response = await tasksApi.getTasks(params);
-      return { tasks: response.data.data, pagination: response.data.pagination };
+      const tasks = await tasksApi.getAll(params);
+      return {
+        tasks: tasks || [],
+        pagination: {
+          page: params.page || 1,
+          limit: params.limit || 10,
+          total: tasks?.length || 0,
+          totalPages: Math.ceil((tasks?.length || 0) / (params.limit || 10))
+        }
+      };
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch tasks');
     }

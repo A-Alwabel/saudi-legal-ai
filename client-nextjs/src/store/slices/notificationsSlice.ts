@@ -19,10 +19,18 @@ const initialState: NotificationsState = {
 
 export const fetchNotifications = createAsyncThunk(
   'notifications/fetchNotifications',
-  async (params?: any, { rejectWithValue }) => {
+  async (params: any = {}, { rejectWithValue }) => {
     try {
-      const response = await notificationsApi.getNotifications(params);
-      return { notifications: response.data.data, pagination: response.data.pagination };
+      const notifications = await notificationsApi.getAll(params);
+      return {
+        notifications: notifications || [],
+        pagination: {
+          page: params.page || 1,
+          limit: params.limit || 10,
+          total: notifications?.length || 0,
+          totalPages: Math.ceil((notifications?.length || 0) / (params.limit || 10))
+        }
+      };
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch notifications');
     }
