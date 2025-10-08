@@ -1,8 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { documentsApi, ApiService } from '../../services/unifiedApiService';
-
-// Create a documents service instance for CRUD operations
-const documentsService = new ApiService('/documents');
+import { documentsApi } from '../../services/unifiedApiService';
 
 interface DocumentsState {
   documents: any[];
@@ -26,7 +23,10 @@ export const fetchDocuments = createAsyncThunk(
   'documents/fetchDocuments',
   async (params: any = {}, { rejectWithValue }) => {
     try {
-      const documents = await documentsService.getAll(params);
+      // Use fetch API to get documents
+      const query = new URLSearchParams(params).toString();
+      const response = await fetch(`/api/documents${query ? '?' + query : ''}`);
+      const documents = await response.json();
       return {
         documents: documents || [],
         pagination: {
@@ -37,7 +37,7 @@ export const fetchDocuments = createAsyncThunk(
         }
       };
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.message || 'Failed to fetch documents');
+      return rejectWithValue(error.message || 'Failed to fetch documents');
     }
   }
 );
