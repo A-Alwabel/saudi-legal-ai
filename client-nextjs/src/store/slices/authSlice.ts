@@ -92,7 +92,7 @@ export const forgotPassword = createAsyncThunk(
   'auth/forgotPassword',
   async (email: string, { rejectWithValue }) => {
     try {
-      const response = await authApi.forgotPassword(email);
+      const response = await authService.forgotPassword(email);
       return response.data.message;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to send reset email');
@@ -104,7 +104,7 @@ export const resetPassword = createAsyncThunk(
   'auth/resetPassword',
   async ({ token, password }: { token: string; password: string }, { rejectWithValue }) => {
     try {
-      const response = await authApi.resetPassword(token, password);
+      const response = await authService.resetPassword(token, password);
       return response.data.message;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Password reset failed');
