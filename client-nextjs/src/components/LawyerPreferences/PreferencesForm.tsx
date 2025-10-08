@@ -101,8 +101,9 @@ const PreferencesForm: React.FC = () => {
   const loadPreferences = async () => {
     try {
       const response = await unifiedApiService.get('/lawyer-preferences');
-      if (response.success) {
-        setPreferences(response.data);
+      const data = (response as any).data || response;
+      if (data) {
+        setPreferences(data);
       }
     } catch (err: any) {
       setError(err.message || 'Failed to load preferences');
@@ -112,8 +113,9 @@ const PreferencesForm: React.FC = () => {
   const loadTemplate = async () => {
     try {
       const response = await unifiedApiService.get('/lawyer-preferences/template');
-      if (response.success) {
-        setTemplate(response.data);
+      const data = (response as any).data || response;
+      if (data) {
+        setTemplate(data);
       }
     } catch (err: any) {
       console.error('Failed to load template:', err);
@@ -131,7 +133,8 @@ const PreferencesForm: React.FC = () => {
 
     try {
       const response = await unifiedApiService.put('/lawyer-preferences', preferences);
-      if (response.success) {
+      const result = (response as any).data || response;
+      if (result || (response as any).status === 200) {
         setSuccess(t('preferences.saved_successfully'));
         setTimeout(() => setSuccess(null), 3000);
       }
@@ -148,8 +151,9 @@ const PreferencesForm: React.FC = () => {
     setSaving(true);
     try {
       const response = await unifiedApiService.post('/lawyer-preferences/reset');
-      if (response.success) {
-        setPreferences(response.data);
+      const result = (response as any).data || response;
+      if (result) {
+        setPreferences(result);
         setSuccess(t('preferences.reset_successfully'));
         setTimeout(() => setSuccess(null), 3000);
       }
