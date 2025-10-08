@@ -4,8 +4,8 @@ import React from 'react';
 import { Button, ButtonProps, styled, alpha } from '@mui/material';
 import { motion, MotionProps } from 'framer-motion';
 
-const StyledAnimatedButton = styled(Button)<{ variant?: 'contained' | 'outlined' | 'text' | 'gradient' }>(
-  ({ theme, variant }) => ({
+const StyledAnimatedButton = styled(Button)<{ customvariant?: 'gradient' }>(
+  ({ theme, customvariant }) => ({
     position: 'relative',
     overflow: 'hidden',
     borderRadius: theme.spacing(2),
@@ -41,7 +41,7 @@ const StyledAnimatedButton = styled(Button)<{ variant?: 'contained' | 'outlined'
       transform: 'translateY(0)',
     },
 
-    ...(variant === 'gradient' && {
+    ...(customvariant === 'gradient' && {
       background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
       color: theme.palette.primary.contrastText,
       border: 'none',
