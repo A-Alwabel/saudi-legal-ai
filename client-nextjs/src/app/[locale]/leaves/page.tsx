@@ -416,26 +416,38 @@ export default function LeavesPage() {
                 <Typography variant="h6" gutterBottom>
                   {isRTL ? 'الطلبات الأخيرة' : 'Recent Requests'}
                 </Typography>
-                <Timeline position="right" sx={{ mt: 2 }}>
+                <Box sx={{ mt: 2 }}>
                   {leaves.slice(0, 3).map((leave, index) => (
-                    <TimelineItem key={leave._id}>
-                      <TimelineSeparator>
-                        <TimelineDot color={getStatusColor(leave.status) as any}>
-                          {getStatusIcon(leave.status)}
-                        </TimelineDot>
-                        {index < 2 && <TimelineConnector />}
-                      </TimelineSeparator>
-                      <TimelineContent>
+                    <Box 
+                      key={leave._id}
+                      sx={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        mb: 2,
+                        p: 1,
+                        borderRadius: 1,
+                        bgcolor: 'background.default'
+                      }}
+                    >
+                      <Avatar 
+                        sx={{ 
+                          bgcolor: `${getStatusColor(leave.status)}.main`,
+                          mr: 2 
+                        }}
+                      >
+                        {getStatusIcon(leave.status)}
+                      </Avatar>
+                      <Box sx={{ flexGrow: 1 }}>
                         <Typography variant="body2" fontWeight={600}>
                           {leave.employeeId?.name || 'Employee'}
                         </Typography>
                         <Typography variant="caption" color="text.secondary">
                           {getTypeConfig(leave.type).label} • {leave.days} days
                         </Typography>
-                      </TimelineContent>
-                    </TimelineItem>
+                      </Box>
+                    </Box>
                   ))}
-                </Timeline>
+                </Box>
               </CardContent>
             </Card>
           </Grid>

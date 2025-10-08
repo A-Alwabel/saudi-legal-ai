@@ -20,12 +20,7 @@ import {
   MenuItem,
   Chip,
   InputAdornment,
-  Timeline,
-  TimelineItem,
-  TimelineSeparator,
-  TimelineDot,
-  TimelineConnector,
-  TimelineContent,
+  Avatar,
 } from '@mui/material';
 import {
   Add,
@@ -335,16 +330,28 @@ export default function PaymentsPage() {
                 <Typography variant="h6" gutterBottom>
                   {isRTL ? 'المعاملات الأخيرة' : 'Recent Transactions'}
                 </Typography>
-                <Timeline position="right">
+                <Box sx={{ mt: 2 }}>
                   {recentTransactions.map((transaction, index) => (
-                    <TimelineItem key={transaction._id}>
-                      <TimelineSeparator>
-                        <TimelineDot color={getStatusColor(transaction.status) as any}>
-                          {getPaymentMethodIcon(transaction.paymentMethod)}
-                        </TimelineDot>
-                        {index < recentTransactions.length - 1 && <TimelineConnector />}
-                      </TimelineSeparator>
-                      <TimelineContent>
+                    <Box 
+                      key={transaction._id}
+                      sx={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        mb: 2,
+                        p: 1,
+                        borderRadius: 1,
+                        bgcolor: 'background.default'
+                      }}
+                    >
+                      <Avatar 
+                        sx={{ 
+                          bgcolor: `${getStatusColor(transaction.status)}.main`,
+                          mr: 2 
+                        }}
+                      >
+                        {getPaymentMethodIcon(transaction.paymentMethod)}
+                      </Avatar>
+                      <Box sx={{ flexGrow: 1 }}>
                         <Typography variant="body2" fontWeight={600}>
                           {transaction.amount.toLocaleString(isRTL ? 'ar-SA' : 'en-US')} SAR
                         </Typography>
@@ -355,10 +362,10 @@ export default function PaymentsPage() {
                         <Typography variant="caption" color="text.secondary">
                           {new Date(transaction.paymentDate).toLocaleDateString(isRTL ? 'ar-SA' : 'en-US')}
                         </Typography>
-                      </TimelineContent>
-                    </TimelineItem>
+                      </Box>
+                    </Box>
                   ))}
-                </Timeline>
+                </Box>
               </CardContent>
             </Card>
           </Grid>

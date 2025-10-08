@@ -55,8 +55,8 @@ export default function LoginPage() {
       console.log('Login response:', response); // Debug log
       
       // Handle both response formats (data wrapper or direct)
-      const userData = response.data?.user || response.user;
-      const userToken = response.data?.token || response.token;
+      const userData = response.data?.user || (response as any).user;
+      const userToken = response.data?.token || (response as any).token;
 
       // Store credentials in Redux
       dispatch(setCredentials({
