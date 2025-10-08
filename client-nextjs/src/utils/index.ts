@@ -264,7 +264,7 @@ export const arrayUtils = {
    */
   removeDuplicates: <T>(array: T[], key?: keyof T) => {
     if (!key) {
-      return [...new Set(array)];
+      return Array.from(new Set(array));
     }
     return array.filter((item, index, self) => 
       index === self.findIndex(t => t[key] === item[key])
