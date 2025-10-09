@@ -124,3 +124,23 @@ temp/
 # Backup files
 *.bak
 *.backup
+
+# Security - Credentials and Secrets
+*credentials*
+*secrets*
+*.pem
+*.key
+*.cert
+config/secrets.js
+config/credentials.js
+
+# Test files with potentially sensitive data
+*test*connection*.js
+*test*mongodb*.js
+
+# Environment-specific
+.env.*
+!.env.example
+!.env.*.example
+env.example
+env.local.example
